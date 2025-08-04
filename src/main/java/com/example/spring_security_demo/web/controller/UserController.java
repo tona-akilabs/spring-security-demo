@@ -44,7 +44,6 @@ public class UserController {
         if (result.hasErrors()) {
             return new ModelAndView("tl/form", "formErrors", result.getAllErrors());
         }
-        System.out.println(user);
         user = this.userRepository.save(user);
         redirect.addFlashAttribute("globalMessage", "Successfully created a new user");
         return new ModelAndView("redirect:/user/{user.id}", "user.id", user.getId());

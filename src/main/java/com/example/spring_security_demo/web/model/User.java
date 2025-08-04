@@ -2,21 +2,27 @@ package com.example.spring_security_demo.web.model;
 
 import java.util.Calendar;
 
+import com.example.spring_security_demo.validation.PasswordMatches;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 
 @Entity
 @Table(name = "users")
+@PasswordMatches
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotEmpty(message = "Username is required.")
-    private String username;
-
     @NotEmpty(message = "Email is required.")
     private String email;
+
+    @NotEmpty(message = "Password is required.")
+    private String password;
+
+    @Transient
+    @NotEmpty(message = "Password confirmation is required.")
+    private String passwordConfirmation;
 
     private Calendar created = Calendar.getInstance();
 
@@ -36,14 +42,6 @@ public class User {
         this.created = created;
     }
 
-    public String getUsername() {
-        return this.username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
     public String getEmail() {
         return this.email;
     }
@@ -52,11 +50,26 @@ public class User {
         this.email = email;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getPasswordConfirmation() {
+        return passwordConfirmation;
+    }
+
+    public void setPasswordConfirmation(String passwordConfirmation) {
+        this.passwordConfirmation = passwordConfirmation;
+    }
+
     @Override
     public String toString() {
         return "User{" +
                 "id=" + id +
-                ", username='" + username + '\'' +
                 ", email='" + email + '\'' +
                 ", created=" + created +
                 '}';

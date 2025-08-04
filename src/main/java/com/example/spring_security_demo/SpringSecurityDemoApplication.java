@@ -27,10 +27,10 @@ public class SpringSecurityDemoApplication {
 		return new BCryptPasswordEncoder();
 	}
 
-	@Bean
+	/*@Bean
 	public Converter<String, User> messageConverter() {
 		return id -> userRepository().findUser(Long.valueOf(id));
-	}
+	}*/
 
 	public static void main(String[] args) {
 		SpringApplication.run(SpringSecurityDemoApplication.class, args);

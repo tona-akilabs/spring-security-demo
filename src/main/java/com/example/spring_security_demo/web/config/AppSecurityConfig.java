@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 @EnableWebSecurity
 @Configuration
@@ -40,7 +41,8 @@ public class AppSecurityConfig {
 
                 .formLogin((form) -> form
                         .loginPage("/login").permitAll()
-                        .loginProcessingUrl("/doLogin"))
+                        .loginProcessingUrl("/doLogin")
+                        .successHandler(customSuccessHandler()))
 
                 .logout((logout) -> logout
                         .logoutUrl("/logout"))
@@ -48,4 +50,12 @@ public class AppSecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable);
         return http.build();
     } // @formatter:on
+
+    @Bean
+    public AuthenticationSuccessHandler customSuccessHandler() {
+        return (request, response, authentication) -> {
+            // Custom logic, e.g., redirect to a specific page
+            response.sendRedirect("/user");
+        };
+    }
 }

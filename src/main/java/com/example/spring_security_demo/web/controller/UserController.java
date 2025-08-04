@@ -39,16 +39,12 @@ public class UserController {
         return new ModelAndView("tl/view", "user", user);
     }
 
-    @RequestMapping(params = "form", method = RequestMethod.GET)
-    public String createForm(@ModelAttribute User user) {
-        return "users/form";
-    }
-
     @RequestMapping(method = RequestMethod.POST)
     public ModelAndView create(@Valid User user, BindingResult result, RedirectAttributes redirect) {
         if (result.hasErrors()) {
             return new ModelAndView("tl/form", "formErrors", result.getAllErrors());
         }
+        System.out.println(user);
         user = this.userRepository.save(user);
         redirect.addFlashAttribute("globalMessage", "Successfully created a new user");
         return new ModelAndView("redirect:/user/{user.id}", "user.id", user.getId());
@@ -56,12 +52,17 @@ public class UserController {
 
     @RequestMapping(value = "delete/{id}")
     public ModelAndView delete(@PathVariable("id") Long id) {
-        this.userRepository.deleteUser(id);
+        this.userRepository.deleteById(id);
         return new ModelAndView("redirect:/");
     }
 
     @RequestMapping(value = "modify/{id}", method = RequestMethod.GET)
     public ModelAndView modifyForm(@PathVariable("id") User user) {
         return new ModelAndView("tl/form", "user", user);
+    }
+
+    @RequestMapping(params = "form", method = RequestMethod.GET)
+    public String createForm(@ModelAttribute User user) {
+        return "tl/form";
     }
 }

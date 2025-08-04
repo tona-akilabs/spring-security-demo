@@ -23,7 +23,7 @@ public class WebMvcConfig  implements WebMvcConfigurer {
         registry.setOrder(Ordered.HIGHEST_PRECEDENCE);
     }
 
-    @Override
+    /*@Override
     public void addFormatters(FormatterRegistry registry) {
         registry.addConverter(new Converter<String, User>() {
             @Override
@@ -32,5 +32,5 @@ public class WebMvcConfig  implements WebMvcConfigurer {
             }
         });
 
-    }
+    }*/
 }

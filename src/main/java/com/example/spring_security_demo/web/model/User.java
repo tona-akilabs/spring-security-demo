@@ -1,9 +1,15 @@
 package com.example.spring_security_demo.web.model;
 
 import java.util.Calendar;
+
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 
+@Entity
+@Table(name = "users")
 public class User {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotEmpty(message = "Username is required.")
@@ -44,5 +50,15 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", email='" + email + '\'' +
+                ", created=" + created +
+                '}';
     }
 }

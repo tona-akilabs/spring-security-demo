@@ -31,12 +31,12 @@ public class UserController {
     @RequestMapping
     public ModelAndView list() {
         Iterable<User> users = this.userRepository.findAll();
-        return new ModelAndView("users/list", "users", users);
+        return new ModelAndView("tl/list", "users", users);
     }
 
     @RequestMapping("{id}")
     public ModelAndView view(@PathVariable("id") User user) {
-        return new ModelAndView("users/view", "user", user);
+        return new ModelAndView("tl/view", "user", user);
     }
 
     @RequestMapping(params = "form", method = RequestMethod.GET)
@@ -47,7 +47,7 @@ public class UserController {
     @RequestMapping(method = RequestMethod.POST)
     public ModelAndView create(@Valid User user, BindingResult result, RedirectAttributes redirect) {
         if (result.hasErrors()) {
-            return new ModelAndView("users/form", "formErrors", result.getAllErrors());
+            return new ModelAndView("tl/form", "formErrors", result.getAllErrors());
         }
         user = this.userRepository.save(user);
         redirect.addFlashAttribute("globalMessage", "Successfully created a new user");
@@ -62,6 +62,6 @@ public class UserController {
 
     @RequestMapping(value = "modify/{id}", method = RequestMethod.GET)
     public ModelAndView modifyForm(@PathVariable("id") User user) {
-        return new ModelAndView("users/form", "user", user);
+        return new ModelAndView("tl/form", "user", user);
     }
 }

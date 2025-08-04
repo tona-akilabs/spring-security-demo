@@ -29,12 +29,7 @@ public class SpringSecurityDemoApplication {
 
 	@Bean
 	public Converter<String, User> messageConverter() {
-		return new Converter<String, User>() {
-			@Override
-			public User convert(String id) {
-				return userRepository().findUser(Long.valueOf(id));
-			}
-		};
+		return id -> userRepository().findUser(Long.valueOf(id));
 	}
 
 	public static void main(String[] args) {

@@ -25,12 +25,7 @@ public class WebMvcConfig  implements WebMvcConfigurer {
 
     @Override
     public void addFormatters(FormatterRegistry registry) {
-        registry.addConverter(new Converter<String, User>() {
-            @Override
-            public User convert(String id) {
-                return userRepository.findUser(Long.valueOf(id));
-            }
-        });
+        registry.addConverter((Converter<String, User>) id -> userRepository.findUser(Long.valueOf(id)));
 
     }
 }

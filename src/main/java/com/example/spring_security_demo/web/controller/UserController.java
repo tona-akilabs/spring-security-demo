@@ -52,11 +52,7 @@ public class UserController {
         user = this.userRepository.save(user);
         redirect.addFlashAttribute("globalMessage", "Successfully created a new user");
         return new ModelAndView("redirect:/{user.id}", "user.id", user.getId());
-    }
-
-    @RequestMapping("foo")
-    public String foo() {
-        throw new RuntimeException("Expected exception in controller");
+        //return new ModelAndView("redirect:/user/{user.id}", "user.id", user.getId());
     }
 
     @RequestMapping(value = "delete/{id}")

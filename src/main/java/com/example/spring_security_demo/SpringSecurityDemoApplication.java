@@ -2,9 +2,11 @@ package com.example.spring_security_demo;
 
 import com.example.spring_security_demo.persistence.InMemoryUserRepository;
 import com.example.spring_security_demo.persistence.UserRepository;
+import com.example.spring_security_demo.web.config.AppSecurityConfig;
 import com.example.spring_security_demo.web.model.User;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.core.convert.converter.Converter;

@@ -2,6 +2,7 @@ package com.example.spring_security_demo.web.controller;
 
 import com.example.spring_security_demo.persistence.UserRepository;
 import com.example.spring_security_demo.web.model.User;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -18,6 +19,7 @@ import jakarta.validation.Valid;
 @Controller
 @RequestMapping("/user")
 public class UserController {
+    private static final Logger logger = org.slf4j.LoggerFactory.getLogger(UserController.class);
 
     private final UserRepository userRepository;
 

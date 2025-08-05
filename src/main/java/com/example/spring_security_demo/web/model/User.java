@@ -8,7 +8,7 @@ import jakarta.validation.constraints.NotEmpty;
 
 @Entity
 @Table(name = "users")
-@PasswordMatches
+//@PasswordMatches
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,7 +21,7 @@ public class User {
     private String password;
 
     @Transient
-    @NotEmpty(message = "Password confirmation is required.")
+    //@NotEmpty(message = "Password confirmation is required.")
     private String passwordConfirmation;
 
     private Calendar created = Calendar.getInstance();
@@ -71,6 +71,8 @@ public class User {
         return "User{" +
                 "id=" + id +
                 ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", passwordConfirmation='" + passwordConfirmation + '\'' +
                 ", created=" + created +
                 '}';
     }

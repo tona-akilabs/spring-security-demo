@@ -1,11 +1,15 @@
 package com.example.spring_security_demo.web.controller;
 
 import com.example.spring_security_demo.persistence.UserRepository;
+import com.example.spring_security_demo.validation.EmailExistsException;
 import com.example.spring_security_demo.web.model.User;
+import com.example.spring_security_demo.web.service.IUserService;
+import com.example.spring_security_demo.web.service.UserService;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,14 +25,11 @@ import jakarta.validation.Valid;
 public class UserController {
     private static final Logger logger = org.slf4j.LoggerFactory.getLogger(UserController.class);
 
-    private final UserRepository userRepository;
-
-    //
+    @Autowired
+    private UserRepository userRepository;
 
     @Autowired
-    public UserController(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
+    private IUserService userService;
 
     @RequestMapping
     public ModelAndView list() {
@@ -46,8 +47,19 @@ public class UserController {
         if (result.hasErrors()) {
             return new ModelAndView("tl/form", "formErrors", result.getAllErrors());
         }
-        user = this.userRepository.save(user);
-        redirect.addFlashAttribute("globalMessage", "Successfully created a new user");
+        try {
+            logger.info("user Info: {}", user);
+            if (user.getId() == null) {
+                userService.registerNewUser(user);
+                redirect.addFlashAttribute("globalMessage", "Successfully created a new user");
+            } else {
+                userService.updateExistingUser(user);
+                redirect.addFlashAttribute("globalMessage", "Successfully updated the user");
+            }
+        } catch (EmailExistsException e) {
+            result.addError(new FieldError("user", "email", e.getMessage()));
+            return new ModelAndView("tl/form", "user", user);
+        }
         return new ModelAndView("redirect:/user/{user.id}", "user.id", user.getId());
     }
 

@@ -17,8 +17,7 @@ public class CustomUserDetailsPasswordService implements UserDetailsPasswordServ
     @Override
     public UserDetails updatePassword(UserDetails user, String newPassword) {
         System.out.println("🔥 updatePassword called for: " + user.getUsername());
-        User entity = userRepository.findByEmail(user.getUsername())
-                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+        User entity = userRepository.findByEmail(user.getUsername());
         entity.setPassword(newPassword);
         userRepository.save(entity);
         return user;

@@ -17,7 +17,7 @@
         <div class="pull-right">
             <a th:href="@{/user}" href="users.html"> Users </a>
         </div>
-        <input type="hidden" th:if="${user.id != null}" th:field="*{id}" />
+        <input type="hidden" th:field="*{id}" th:class="${#fields.hasErrors('id')} ? 'field-error'" />
         <label
             for="email">Email</label>
         <input type="email" th:field="*{email}"

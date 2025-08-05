@@ -6,7 +6,7 @@ import org.springframework.security.authentication.event.AbstractAuthenticationF
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
-@Component
+//@Component
 public class AuthenticationFailureListener implements ApplicationListener<AbstractAuthenticationFailureEvent> {
     private static final Logger logger = org.slf4j.LoggerFactory.getLogger(AuthenticationFailureListener.class);
 

@@ -6,7 +6,7 @@ import org.springframework.security.authentication.event.AuthenticationSuccessEv
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
-@Component
+//@Component
 public class AuthenticationSuccessListener implements ApplicationListener<AuthenticationSuccessEvent> {
     private static final Logger logger = org.slf4j.LoggerFactory.getLogger(AuthenticationSuccessListener.class);
     @Override

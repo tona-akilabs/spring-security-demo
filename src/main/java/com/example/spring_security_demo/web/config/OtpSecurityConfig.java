@@ -1,5 +1,6 @@
 package com.example.spring_security_demo.web.config;
 
+import com.example.spring_security_demo.web.config.otp.CustomAuthenticationFailureHandler;
 import com.example.spring_security_demo.web.config.otp.CustomAuthenticationSuccessHandler;
 import com.example.spring_security_demo.web.config.otp.PhoneOtpAuthenticationFilter;
 import com.example.spring_security_demo.web.config.otp.PhoneOtpAuthenticationProvider;

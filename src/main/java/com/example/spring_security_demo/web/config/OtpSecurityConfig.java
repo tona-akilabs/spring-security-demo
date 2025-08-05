@@ -3,8 +3,11 @@ package com.example.spring_security_demo.web.config;
 import com.example.spring_security_demo.web.config.otp.CustomAuthenticationSuccessHandler;
 import com.example.spring_security_demo.web.config.otp.PhoneOtpAuthenticationFilter;
 import com.example.spring_security_demo.web.config.otp.PhoneOtpAuthenticationProvider;
+import com.example.spring_security_demo.web.service.CustomCustomerDetailsService;
 import com.example.spring_security_demo.web.service.CustomUserDetailsService;
+import com.example.spring_security_demo.web.service.CustomerDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -21,8 +24,18 @@ public class OtpSecurityConfig {
     @Autowired
     private PhoneOtpAuthenticationProvider otpAuthProvider;
 
+    /*@Autowired
+    private CustomUserDetailsService userDetailsService;*/
+
     @Autowired
-    private CustomUserDetailsService userDetailsService;
+    //@Qualifier("customCustomerDetailsService")
+    // Ensure this is the correct bean name if you have multiple implementations
+    // of UserDetailsService
+    // This is used to load user details based on phone number
+    // and is required for the PhoneOtpAuthenticationProvider
+    // to authenticate users based on OTP.
+    // It should be the same service that implements loadCustomerByPhoneNumber.
+    private CustomerDetailsService customerDetailsService;
 
     @Autowired
     private CustomAuthenticationSuccessHandler successHandler;
@@ -45,7 +58,7 @@ public class OtpSecurityConfig {
     @Bean
     public AuthenticationManager authManager(HttpSecurity http) throws Exception {
         AuthenticationManagerBuilder authBuilder = http.getSharedObject(AuthenticationManagerBuilder.class);
-        authBuilder.userDetailsService(userDetailsService); // Set service
+        authBuilder.userDetailsService(customerDetailsService); // Set service
         return authBuilder.build(); // ✅ Call build on the builder
     }
 

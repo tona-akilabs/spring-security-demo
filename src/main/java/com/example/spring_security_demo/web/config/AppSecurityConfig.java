@@ -58,7 +58,8 @@ public class AppSecurityConfig {
                 .logout((logout) -> logout
                         .logoutUrl("/logout"))
 
-                .csrf(AbstractHttpConfigurer::disable);
+                //.csrf(AbstractHttpConfigurer::disable)
+        ;
         return http.build();
     } // @formatter:on
 

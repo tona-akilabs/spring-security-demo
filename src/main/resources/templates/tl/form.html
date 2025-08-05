@@ -17,6 +17,9 @@
         <div class="pull-right">
             <a th:href="@{/user}" href="users.html"> Users </a>
         </div>
+        <!-- CSRF Token -->
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+
         <input type="hidden" th:field="*{id}" th:class="${#fields.hasErrors('id')} ? 'field-error'" />
         <label
             for="email">Email</label>
